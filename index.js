@@ -1,8 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
-
-
 require('dotenv').config()
 const cors = require('cors');
 
@@ -46,7 +44,7 @@ async function run (){
 
     app.get('/products/:id', async(req,res) =>{
         const id = req.params.id;
-        console.log('geting spacic id', id);
+       
         const query = {_id: ObjectId(id)};
         const product = await productCollection.findOne(query);
         res.json(product);
@@ -64,6 +62,7 @@ async function run (){
 
 
     // use post get data by keys
+
     app.post('/products/bykeys', async(req,res) =>{
        const keys = req.body;
        const query = {key:{$in: keys}}
@@ -71,23 +70,17 @@ async function run (){
         res.json(products)
     });
 
-    // use my test main is upper post get data by keys
+    // post api
 
     app.post('/products', async(req,res) =>{
         const product = req.body;
         console.log('hit the post api', product);
-        
-    //    const keys = req.body;
-    //    const query = {key:{$in: keys}}
+
        const result = await productCollection.insertOne(product)
        console.log(result);
         res.json(result)
-        // res.send('post hitted')
+        
     });
-
-
-    
-
 
 
     // get order api 
@@ -102,10 +95,10 @@ async function run (){
     app.post('/orders', async(req,res) =>{
         const order = req.body;
         
-        // console.log('order', order);
+       
         const result = await orderCollection.insertOne(order);
         res.json(result);
-        // res.send('order processed');
+        
     });
 
     //   Delete Api
@@ -119,7 +112,7 @@ async function run (){
 
     }
     finally{
-        // await client.close();
+       
     }
 
 }
