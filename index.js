@@ -120,7 +120,7 @@ async function run (){
 run().catch(console.dir);
 
 app.get('/', (req,res) =>{
-    res.send('travel express server is running');
+    res.send('travel express server is running on browser');
 });
 
 app.listen(port, ()=>{
